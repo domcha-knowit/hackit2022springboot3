@@ -9,5 +9,4 @@ public class BeerScoreApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(BeerScoreApplication.class, args);
 	}
-
 }
