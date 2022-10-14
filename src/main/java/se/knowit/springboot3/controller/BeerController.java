@@ -2,6 +2,7 @@ package se.knowit.springboot3.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,8 +23,8 @@ public class BeerController {
         return beerScoreRepository.findAll();
     }
 
-    @RequestMapping(value = "beer", method = RequestMethod.POST)
-    public String postBeer() {
-        return "Skål";
+    @RequestMapping(value = "beers", method = RequestMethod.POST)
+    public Beer postBeer(@RequestBody Beer beer) {
+        return beerScoreRepository.saveAndFlush(beer);
     }
 }
