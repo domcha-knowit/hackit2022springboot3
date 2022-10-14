@@ -1,0 +1,18 @@
+<div class="container pad-top">
+  <a ui-sref="newBeer" class="btn-primary btn-lg nodecoration">Add New Beer</a>
+  <table class="table beertable">
+      <tr>
+          <td><h3>All Beers</h3></td>
+          <td></td>
+      </tr>
+      <tr ng-repeat="beer in beers">
+          <td>{{beer.name}}</td>
+          <td>{{beer.description}}</td>
+          <td>{{beer.yearDiscovered}}</td>
+          <td>
+              <a class="btn btn-primary" ui-sref="viewBeer({id:beer.id})">View</a>
+              <a class="btn btn-danger"  ng-click="deleteBeer(beer)">Delete</a>
+          </td>
+      </tr>
+  </table>
+</div>
