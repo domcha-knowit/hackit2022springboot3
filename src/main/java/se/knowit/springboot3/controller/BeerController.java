@@ -21,4 +21,9 @@ public class BeerController {
     public List<Beer> list() {
         return beerScoreRepository.findAll();
     }
+
+    @RequestMapping(value = "beer", method = RequestMethod.POST)
+    public String postBeer() {
+        return "Skål";
+    }
 }
