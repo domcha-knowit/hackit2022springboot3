@@ -50,13 +50,18 @@ public class BeerController {
     @PostMapping(value = "beers")
     public BeerModel postBeer(@RequestBody BeerModel beer) {
         String beerName = beer.getName();
-        PunkModel punkModel = punkService.getBeerDescription(beerName).last().block();
+        try {
+            PunkModel punkModel = punkService.getBeerDescription(beerName).last().block();
 
-        BeerModel updatedBeer = BeerModel.builder()
-                .name(beerName)
-                .description(punkModel.description())
-                .score(beer.getScore())
-                .build();
-        return beerScoreRepository.saveAndFlush(updatedBeer);
+            BeerModel updatedBeer = BeerModel.builder()
+                    .name(punkModel.name())
+                    .description(punkModel.description())
+                    .score(beer.getScore())
+                    .build();
+            return beerScoreRepository.saveAndFlush(updatedBeer);
+        } catch (Exception e) {
+            return beerScoreRepository.saveAndFlush(beer);
+        }
+
     }
 }
