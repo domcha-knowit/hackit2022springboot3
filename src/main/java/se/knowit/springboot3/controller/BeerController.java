@@ -2,6 +2,7 @@ package se.knowit.springboot3.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 import se.knowit.springboot3.model.BeerModel;
 import se.knowit.springboot3.model.PunkModel;
 import se.knowit.springboot3.repository.BeerScoreRepository;
@@ -49,14 +50,13 @@ public class BeerController {
     @PostMapping(value = "beers")
     public BeerModel postBeer(@RequestBody BeerModel beer) {
         String beerName = beer.getName();
-        PunkModel punkModel = punkService.getBeerDescription(beerName);
+        PunkModel punkModel = punkService.getBeerDescription(beerName).last().block();
 
         BeerModel updatedBeer = BeerModel.builder()
                 .name(beerName)
                 .description(punkModel.description())
                 .score(beer.getScore())
                 .build();
-
         return beerScoreRepository.saveAndFlush(updatedBeer);
     }
 }
